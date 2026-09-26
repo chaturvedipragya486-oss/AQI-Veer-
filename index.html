@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQI-Veer Pro | Intelligent Eco-Navigation</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Login / Landing Shutter -->
+    <div id="shutter" class="view active">
+        <div class="login-backdrop-shapes"></div>
+        <div class="login-card">
+            <div class="logo-badge">
+                <span>🌱</span>
+            </div>
+            <h1>AQI-Veer Pro</h1>
+            <p class="subtitle">Next-Gen Intelligent Eco-Navigation</p>
+            <div class="input-container">
+                <input type="text" id="username" placeholder="Enter Official ID or Citizen Name" required>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-official" onclick="app.login('Official')">
+                    <i>🛡️</i> Official Login
+                </button>
+                <button class="btn btn-citizen" onclick="app.login('Citizen')">
+                    <i>🚶‍♂️</i> Citizen Login
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard View -->
+    <div id="dashboard" class="view">
+        <div class="sidebar">
+            <div class="sidebar-top">
+                <div class="sidebar-header">
+                    <h2>🌱 AQI-Veer Pro</h2>
+                    <div class="role-badge" id="user-role-display">Role: Guest</div>
+                </div>
+                
+                <div class="route-panel">
+                    <h3>Eco-Navigation Engine</h3>
+                    <div class="input-group">
+                        <label for="start">Start Location</label>
+                        <input type="text" id="start" placeholder="e.g., Mansarovar, Jaipur" value="Mansarovar, Jaipur">
+                    </div>
+                    <div class="input-group">
+                        <label for="end">Destination</label>
+                        <input type="text" id="end" placeholder="e.g., Pink City, Jaipur" value="Pink City, Jaipur">
+                    </div>
+                    <button class="btn-search" onclick="app.calculatePreciseRoute()">
+                        <span>🔍 Compare & Find Cleanest Routes</span>
+                    </button>
+
+                    <!-- Multi-Route Comparison Container -->
+                    <div id="route-options-container" class="hidden">
+                        <h4 class="section-subheading">Available Pathways</h4>
+                        <div id="route-cards-list"></div>
+                    </div>
+
+                    <!-- Active Route Health Report -->
+                    <div id="aqi-report" class="report-box hidden">
+                        <h4 id="report-title">Route Health Report</h4>
+                        <p id="aqi-status-text">Analyzing paths...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-bottom">
+                <!-- IoT Sensor Simulation Panel (Official Only) -->
+                <div id="official-panel" class="admin-panel hidden">
+                    <h3>⚠️ IoT Sensor Simulation</h3>
+                    <p class="panel-instructions">Select AQI Level, then click on the map to plot a pollution zone:</p>
+                    <div class="input-group">
+                        <select id="aqi-level-select">
+                            <option value="high">🔴 High AQI (Hazardous Zone)</option>
+                            <option value="moderate">🟡 Moderate AQI (Warning Zone)</option>
+                            <option value="low">🟢 Low AQI (Safe Green Zone)</option>
+                        </select>
+                    </div>
+                    <button class="btn-clear-aqi" onclick="app.clearHighAQIZones()">Reset All Sensor Layers</button>
+                </div>
+
+                <button class="btn-logout" onclick="app.logout()">Secure Logout</button>
+            </div>
+        </div>
+
+        <div id="map"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
